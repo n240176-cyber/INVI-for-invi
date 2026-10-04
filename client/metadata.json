@@ -1,0 +1,6 @@
+{
+  "name": "INVI - Examination Monitoring System",
+  "description": "Real-time examination invigilator monitoring system using ESP32 and Bluetooth presence detection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
