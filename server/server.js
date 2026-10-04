@@ -207,25 +207,48 @@ function parseScheduledStart(value) {
   }
 
   // HH:MM format
-  if (
-    /^\d{2}:\d{2}$/.test(value)
-  ) {
-    const [hours, minutes] =
-      value
-        .split(":")
-        .map(Number);
+ if (
+  /^\d{2}:\d{2}$/.test(value)
+) {
+  const [hours, minutes] =
+    value
+      .split(":")
+      .map(Number);
 
-    const date = new Date();
+  // Indian Standard Time = UTC + 5:30
+  const IST_OFFSET_MS =
+    5.5 * 60 * 60 * 1000;
 
-    date.setHours(
+  // Get today's date in India
+  const nowIST =
+    new Date(
+      Date.now() + IST_OFFSET_MS
+    );
+
+  const year =
+    nowIST.getUTCFullYear();
+
+  const month =
+    nowIST.getUTCMonth();
+
+  const day =
+    nowIST.getUTCDate();
+
+  // Convert the entered IST clock time
+  // into the correct UTC timestamp
+  const utcTime =
+    Date.UTC(
+      year,
+      month,
+      day,
       hours,
       minutes,
       0,
       0
-    );
+    ) - IST_OFFSET_MS;
 
-    return date;
-  }
+  return new Date(utcTime);
+}
 
   const parsed =
     new Date(value);
